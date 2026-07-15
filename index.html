@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gramática aplicada ao texto: fugindo do Odorico — Mestres da UERJ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@1,600;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AULA ESPECIAL — Gramática aplicada ao texto (Fugindo do Odorico)
+   Réplica fiel do deck PPTX (Mestres da UERJ / Milla Borges):
+   faixa-prédio no topo + logo serif, fundo roxo #5900CA com
+   pattern de notas, títulos serif itálicos, cards brancos com
+   borda escura e sombra dura, Poppins justificado.
+   ============================================================ */
+:root{
+  --roxo:#5900CA;
+  --roxo-profundo:#22004D;
+  --tinta:#16032E;
+  --texto-card:#2A2140;
+  --violeta:#545DE0;
+  --branco:#FFFFFF;
+  --erro:#E02040;
+  --ok:#0E8A5F;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:#0D001F;
+  font-family:'Poppins',system-ui,sans-serif;
+  color:var(--branco);
+  overflow:hidden;
+  display:grid;place-items:center;
+  min-height:100dvh;
+}
+
+/* ---------- palco 16:9 ---------- */
+.stage{
+  position:relative;
+  width:min(100vw,177.78vh);
+  height:min(56.25vw,100vh);
+  container-type:size;
+  overflow:hidden;
+  background:var(--roxo);
+}
+/* pattern de notas de dinheiro (asset do deck), tom mais claro que o fundo */
+.stage::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url("assets/money.png"),url("assets/money.png");
+  background-size:34cqw auto,26cqw auto;
+  background-position:-4cqw -6cqh,64cqw 40cqh;
+  background-repeat:repeat;
+  filter:brightness(2.1);
+  opacity:.14;
+}
+
+/* ---------- faixa do topo: prédio + logo ---------- */
+.topstrip{
+  position:absolute;top:0;left:0;right:0;height:7cqh;z-index:40;
+  background:url("assets/bg-predio.jpg") center 30%/cover no-repeat;
+  display:flex;align-items:center;justify-content:center;
+}
+.topstrip::before{content:"";position:absolute;inset:0;background:rgba(13,0,31,.55)}
+.topstrip .logo{
+  position:relative;z-index:1;text-align:center;line-height:.92;
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:700;color:#fff;
+}
+.topstrip .logo .l1{font-size:3cqh;letter-spacing:.02em}
+.topstrip .logo .l2{font-size:2cqh;display:block}
+
+/* ---------- rodapé ---------- */
+.handle{
+  position:absolute;bottom:1.8cqh;left:0;right:0;text-align:center;
+  font-size:2.4cqh;color:#fff;z-index:40;pointer-events:none;letter-spacing:.02em;
+}
+.handle .thin{font-weight:300}
+.handle b{font-weight:700}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:10cqh 6cqw 8cqh;display:none;z-index:10}
+.slide.active{display:block}
+.slide.active [data-in]{animation:rise .7s var(--ease) both}
+.slide.active [data-in="2"]{animation-delay:.14s}
+.slide.active [data-in="3"]{animation-delay:.28s}
+.slide.active [data-in="4"]{animation-delay:.42s}
+@keyframes rise{
+  from{opacity:0;transform:translateY(3.5cqh);filter:blur(6px)}
+  to{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+.fragment{opacity:0;transform:translateY(2.5cqh);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.fragment.visible{opacity:1;transform:translateY(0)}
+
+/* ---------- tipografia (fiel ao render) ---------- */
+.t-script{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
+  color:#fff;line-height:1.06;
+  text-shadow:0 .4cqh 2cqh rgba(13,0,31,.35);
+}
+h1.t-script{font-size:9.5cqh}
+h2.t-script{font-size:7.4cqh}
+.label{
+  font-size:2.5cqh;font-weight:600;letter-spacing:.06em;color:#fff;
+  text-transform:uppercase;
+}
+
+/* ---------- cards (borda escura + sombra dura, texto justificado) ---------- */
+.card{
+  background:var(--branco);color:var(--texto-card);
+  border:.45cqh solid var(--tinta);
+  border-radius:1.8cqh;
+  box-shadow:1.4cqw 2.2cqh 0 rgba(22,3,46,.95);
+  padding:3.4cqh 2.6cqw;
+  font-size:2.7cqh;line-height:1.6;font-weight:400;
+  text-align:justify;
+}
+.card .oque{display:block;color:var(--violeta);font-weight:700;font-size:2.9cqh;margin-bottom:1cqh;text-align:left}
+.card b,.card strong{font-weight:700;color:var(--roxo)}
+.card .no{color:var(--erro);font-weight:600}
+.card .yes{color:var(--ok);font-weight:600}
+.card q{font-style:italic;quotes:"“" "”"}
+.card+.card{margin-top:2.6cqh}
+.gabarito{
+  background:var(--roxo-profundo);color:#fff;
+  border:.45cqh solid var(--tinta);border-radius:1.8cqh;
+  box-shadow:1.4cqw 2.2cqh 0 rgba(22,3,46,.95);
+  padding:2.6cqh 2.4cqw;font-size:2.45cqh;line-height:1.55;margin-top:2.8cqh;
+  text-align:left;
+}
+.gabarito b{color:#C9B3FF}
+
+/* ---------- layouts ---------- */
+.center-wrap{height:100%;display:grid;place-items:center}
+.center-col{max-width:76cqw;display:grid;gap:3.4cqh;justify-items:center;text-align:center}
+
+/* split: foto full-bleed à esquerda (como no deck), conteúdo à direita */
+.split{position:absolute;inset:0;display:grid;grid-template-columns:37.5cqw 1fr}
+.split .art{position:relative;overflow:hidden}
+.split .art img{width:100%;height:100%;object-fit:cover;display:block}
+.split .art.contain{display:grid;place-items:center;padding:8cqh 2cqw}
+.split .art.contain img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(1cqw 1.8cqh 0 rgba(22,3,46,.6))}
+.split .content{
+  padding:11cqh 5cqw 10cqh 4.5cqw;
+  display:grid;gap:2.8cqh;align-content:center;
+}
+.split .content h2{text-align:center}
+
+/* listas com coluna grega */
+.list-layout{height:100%;display:grid;grid-template-columns:15cqw 1fr;gap:3.5cqw;align-items:start}
+.list-layout .colunas{height:82cqh;width:100%;max-width:13cqw;object-fit:contain;justify-self:center;filter:drop-shadow(0 2cqh 3cqh rgba(13,0,31,.45))}
+.list-layout .content{display:grid;gap:2.4cqh;align-content:center;min-height:74cqh}
+.list-layout h2{text-align:left}
+.list-layout .card{font-size:2.5cqh;padding:2.6cqh 2.2cqw}
+
+/* ---------- capa ---------- */
+.cover{padding:0}
+.cover .mascote{position:absolute;left:8cqw;bottom:0;height:78cqh;z-index:6;filter:drop-shadow(0 1.5cqh 3cqh rgba(13,0,31,.4))}
+.cover .plateia{position:absolute;left:0;right:0;bottom:-2cqh;width:100%;opacity:.95;z-index:5}
+.cover .titles{position:absolute;left:46cqw;right:5cqw;top:26cqh;display:grid;gap:3cqh;z-index:7;text-align:center}
+.cover .titles .box{
+  border:.35cqh solid rgba(255,255,255,.9);border-radius:.6cqh;
+  padding:2.6cqh 2cqw;
+}
+.cover .titles .box .t-script{font-size:6cqh}
+.cover .handle-inline{font-size:2.3cqh;color:rgba(255,255,255,.9)}
+
+/* ---------- final ---------- */
+.final{padding:0}
+.final .foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.final .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,0,31,.72) 0%,rgba(13,0,31,.15) 45%,rgba(13,0,31,.7) 100%)}
+.final .msg{position:absolute;left:6cqw;right:6cqw;top:14cqh;text-align:center;z-index:5}
+.final .msg .t-script{font-size:10.5cqh}
+.final .credit{position:absolute;bottom:9cqh;left:0;right:0;text-align:center;font-weight:600;font-size:2.5cqh;z-index:5}
+
+/* ---------- UI de navegação ---------- */
+.progress{position:absolute;left:0;bottom:0;height:.7cqh;background:var(--violeta);z-index:60;transition:width .45s var(--ease)}
+.counter{position:absolute;right:1.6cqw;bottom:1.6cqh;z-index:60;font-size:1.9cqh;font-weight:600;color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums}
+.navhint{position:absolute;left:1.6cqw;bottom:1.6cqh;z-index:60;font-size:1.7cqh;color:rgba(255,255,255,.4)}
+.navbtn{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:55;
+  width:5.5cqh;height:5.5cqh;min-width:44px;min-height:44px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);background:rgba(13,0,31,.4);
+  color:#fff;font-size:2.6cqh;cursor:pointer;display:grid;place-items:center;
+  opacity:.35;transition:opacity .25s,background .25s;backdrop-filter:blur(6px);
+}
+.navbtn:hover,.navbtn:focus-visible{opacity:1;background:rgba(89,0,202,.8)}
+.navbtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.navbtn.prev{left:1.2cqw}.navbtn.next{right:1.2cqw}
+
+@media (prefers-reduced-motion:reduce){
+  .slide.active [data-in]{animation:none}
+  .fragment{transition:none;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- faixa do topo com prédio + logo Mestres da UERJ -->
+  <header class="topstrip" data-topbar>
+    <div class="logo"><span class="l1">Mestres</span><span class="l2">da UERJ</span></div>
+  </header>
+  <div class="handle" data-handle><span class="thin">@prof</span><b>millaborges</b></div>
+
+  <!-- ============ 1. CAPA ============ -->
+  <section class="slide cover" data-title="Capa">
+    <img class="plateia" src="assets/plateia.png" alt="" data-in>
+    <img class="mascote" src="assets/mascote.png" alt="Estudante" data-in="2">
+    <div class="titles">
+      <h1 class="t-script" style="font-size:8.4cqh" data-in="2">AULA ESPECIAL</h1>
+      <div class="box" data-in="3">
+        <div class="t-script">Gramática aplicada ao texto: fugindo do Odorico</div>
+      </div>
+      <div class="handle-inline" data-in="4"><span style="font-weight:300">@prof</span><b>millaborges</b></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. MATERIAL AUTORAL ============ -->
+  <section class="slide" data-title="Material autoral">
+    <div class="center-wrap"><div class="center-col" style="max-width:70cqw">
+      <h2 class="t-script" data-in>Compartilhamento proibido</h2>
+      <div class="card" data-in="2">
+        <span class="oque">MATERIAL AUTORAL</span>
+        Reconhecemos e valorizamos o trabalho árduo, a criatividade e a dedicação presentes na criação deste conteúdo, que é protegido por direitos autorais. A democratização do acesso à educação não deve ser atrelada ao compartilhamento deste material — a professora Milla Borges oferece aulas gratuitas de redação em seus canais. Este material é estritamente autoral e não deve ser compartilhado ou distribuído sem autorização. <b>Respeite os direitos autorais. Pirataria é crime.</b>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 3. ABERTURA ============ -->
+  <section class="slide" data-title="Abertura">
+    <img src="assets/chapeu.png" alt="" style="position:absolute;right:7cqw;top:13cqh;width:13cqw;transform:rotate(8deg);filter:drop-shadow(0 1.5cqh 3cqh rgba(13,0,31,.45));z-index:3" data-in="3">
+    <img src="assets/bandeira-brasil.svg" alt="" style="position:absolute;left:6cqw;bottom:15cqh;width:10cqw;border-radius:.8cqh;box-shadow:.7cqw 1.4cqh 0 rgba(22,3,46,.9);z-index:3" data-in="4">
+    <div class="center-wrap"><div class="center-col">
+      <div class="card" style="font-size:3.2cqh" data-in>
+        A UERJ quer o <b>contrário</b> do Odorico: não quer palavra difícil, quer <b>frase clara</b>. E clareza, no papel, tem nome — pontuação certa, concordância certa, pronome no lugar certo. Hoje a gente aprende a escrever <i>para ser entendido</i>, não para impressionar.
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 4. NÃO ESCREVA COMO O ODORICO ============ -->
+  <section class="slide" data-title="Não escreva como o Odorico">
+    <div class="split">
+      <div class="art" data-in><img src="assets/odorico.jpg" alt="Odorico Paraguaçu (Paulo Gracindo)"></div>
+      <div class="content">
+        <h2 class="t-script" data-in="2">Não escreva como o Odorico</h2>
+        <div class="card" data-in="3">
+          <q>Botando de lado os entretantos e partindo prós finalmente, é uma alegria poder anunciar que <b>prafrentemente</b> vocês já poderão morrer descansados.</q> Odorico Paraguaçu é mestre em falar bonito sem comunicar nada — a linguagem empolada é a máscara do demagogo. <b>Escrever bem não é escrever difícil: é ser entendido de primeira.</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. IMPORTANTE ============ -->
+  <section class="slide" data-title="Importante">
+    <img src="assets/swirl.png" alt="" style="position:absolute;left:4cqw;top:13cqh;width:15cqw;opacity:.85;z-index:3" data-in="3">
+    <div class="center-wrap"><div class="center-col" style="max-width:66cqw">
+      <h2 class="t-script" data-in>Importante!</h2>
+      <div class="card" data-in="2">
+        <b>217 alunos</b> responderam à nossa pesquisa de gramática. O maior grupo (<b>84</b>) disse: <q>entendo a regra, mas não consigo aplicar no texto</q>. Por isso, esta aula não empilha regra: ela <b>treina o olho</b> com frases reais de redação — todas ambientadas em Sucupira, a cidade de <i>O Bem-Amado</i>.
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 6. AS TRÊS LEIS DA VÍRGULA (split: vírgula-monumento + fragments) ============ -->
+  <section class="slide" data-title="As três leis da vírgula">
+    <div class="split">
+      <div class="art" data-in><img src="assets/virgula-monumento.jpg" alt="Monumento em mármore de uma vírgula"></div>
+      <div class="content">
+        <h2 class="t-script" style="font-size:6.2cqh" data-in="2">As três leis da vírgula</h2>
+        <div class="card fragment" style="font-size:2.4cqh"><b>Lei 1 —</b> Sujeito e verbo não se separam por vírgula sozinha. <span class="no">❌ “O prefeito de Sucupira, prometeu o cemitério.”</span> Par de vírgulas isolando um aposto, sim: <span class="yes">“Odorico, homem de fala empolada, dominava a cidade.”</span></div>
+        <div class="card fragment" style="font-size:2.4cqh"><b>Lei 2 —</b> Adjunto adverbial deslocado pede vírgula (com 3+ palavras, obrigatória): <span class="yes">“Desde que assumiu a prefeitura, Odorico não conseguia inaugurar o cemitério.”</span> No meio, abre <b>e</b> fecha: <span class="yes">“Odorico, durante todo o mandato, prometia a obra.”</span></div>
+        <div class="card fragment" style="font-size:2.4cqh"><b>Lei 3 —</b> Cada período fecha <b>uma</b> ideia: nem justaposição (<span class="no">❌ “Odorico prometeu o cemitério, ninguém morria”</span>), nem truncamento (<span class="no">❌ “Manipulou Dirceu. Para conseguir o defunto.”</span>).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. PORQUE / POIS / PORÉM (split: placas de Sucupira + fragments) ============ -->
+  <section class="slide" data-title="Porque, pois e porém">
+    <div class="split">
+      <div class="art" data-in><img src="assets/placas-porque-pois-porem.jpg" alt="Placas de rua em Sucupira: porque, pois, porém"></div>
+      <div class="content">
+        <h2 class="t-script" style="font-size:6.2cqh" data-in="2">Porque, pois e porém</h2>
+        <div class="card fragment" style="font-size:2.45cqh"><b>PORQUE</b> (dá a causa logo depois da principal): vírgula facultativa — em geral, dispensada. <span class="yes">“Odorico entrou em desespero porque ninguém morria.”</span></div>
+        <div class="card fragment" style="font-size:2.45cqh"><b>POIS</b> (explica, vindo depois da oração): pede vírgula antes. <span class="yes">“Odorico precisava de um defunto, pois já prometera inaugurar o cemitério.”</span></div>
+        <div class="card fragment" style="font-size:2.45cqh"><b>PORÉM</b> (opõe, e vem deslocado): entra entre vírgulas. <span class="yes">“Neco Pedreira, porém, não se calava diante do prefeito.”</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. MÃO NA MASSA — VÍRGULA ============ -->
+  <section class="slide" data-title="Mão na massa: vírgula">
+    <img src="assets/rosa.png" alt="" style="position:absolute;right:5cqw;bottom:12cqh;width:8cqw;filter:drop-shadow(.5cqw 1cqh 0 rgba(22,3,46,.6));z-index:3" data-in="3">
+    <div class="center-wrap"><div class="center-col" style="max-width:72cqw">
+      <h2 class="t-script" data-in>Mão na massa</h2>
+      <div class="label" data-in>corrija antes de ver a resposta — 1 minuto no caderno</div>
+      <div class="card" style="text-align:left" data-in="2">
+        1. <q>O prefeito mais votado da história de Sucupira<span class="no">,</span> inaugurou a obra sem defunto.</q><br>
+        2. <q>Odorico trouxe Zeca Diabo para a cidade<span class="no">,</span> o povo ficou apavorado.</q><br>
+        3. <q>Durante o velório de Dulcinéa<span class="no"> </span>o Vigário discursou.</q>
+      </div>
+      <div class="gabarito fragment">
+        <b>Gabarito:</b> 1. fora a vírgula (sujeito ↔ verbo) · 2. “…para a cidade, <b>e</b> o povo…” (ou ponto) · 3. “…de Dulcinéa<b>,</b> o Vigário…” (adjunto de 3+ palavras).
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 9. CRASE — TRUQUE DO MASCULINO ============ -->
+  <section class="slide" data-title="Crase: truque do masculino">
+    <div class="center-wrap"><div class="center-col" style="max-width:74cqw">
+      <h2 class="t-script" data-in>Crase — o truque do masculino</h2>
+      <div class="card" style="text-align:left" data-in="2">
+        Troque a palavra feminina por uma masculina equivalente. Apareceu <b>“ao”</b>, tem crase; apareceu só <b>“o”</b>, não tem.<br><br>
+        <q>Odorico recorreu <b>à</b> violência.</q> → “recorreu <b>ao</b> crime” → <span class="yes">tem crase ✅</span><br>
+        <q>A população assistiu <b>à</b> queda do prefeito.</q> → “assistiu <b>ao</b> desfecho” → <span class="yes">tem crase ✅</span><br>
+        <q>Nos tempos de cangaço, Zeca Diabo obedecia apenas <b>às</b> leis do bando.</q> → “obedecia <b>aos</b> códigos” → <span class="yes">crase no plural: às ✅</span>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 10. CRASE — ONDE NUNCA ENTRA ============ -->
+  <section class="slide" data-title="Crase: onde nunca entra">
+    <div class="center-wrap"><div class="center-col" style="max-width:76cqw">
+      <h2 class="t-script" style="font-size:6.2cqh" data-in>Crase — onde ela nunca entra <br><span style="font-size:4cqh">(e os casos que valem ouro na UERJ)</span></h2>
+      <div class="card" style="text-align:left;font-size:2.5cqh" data-in="2">
+        Nunca há crase antes de: <b>verbo</b>, palavra <b>masculina</b> e a maioria dos <b>pronomes</b>.<br>
+        <q>Odorico estava disposto <b>a</b> mentir.</q> · <q>Zeca Diabo andava <b>a</b> cavalo.</q> · <q>Odorico dirigiu-se <b>a</b> ela com sua lábia.</q>
+      </div>
+      <div class="card fragment" style="text-align:left;font-size:2.5cqh">
+        <b>Valem ouro:</b> locução adverbial feminina → crase: <q><b>Às</b> vésperas de inaugurar o cemitério, Odorico é assassinado.</q> · <q><b>Devido à</b> peculiaridade de sua fala, Odorico encantava os eleitores.</q><br>
+        <span class="no">❌ “de 1962 à 1963”</span> → <span class="yes">✅ “de 1962 a 1963”</span> (numeral: sem artigo, sem crase)
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 11. CRASE — MÃO NA MASSA ============ -->
+  <section class="slide" data-title="Crase: mão na massa">
+    <div class="center-wrap"><div class="center-col" style="max-width:72cqw">
+      <h2 class="t-script" data-in>Crase — mão na massa</h2>
+      <div class="card" style="text-align:left" data-in="2">
+        1. <q>Odorico dedicou a obra <b>à</b> população de Sucupira.</q> — certo ou errado?<br>
+        2. <q>O Vigário assistiu <b>à</b> tudo calado.</q><br>
+        3. <q>As irmãs Cajazeira chegaram <b>à</b> pé ao comício.</q>
+      </div>
+      <div class="gabarito fragment">
+        <b>Gabarito:</b> 1. certo — “dedicou <b>ao</b> povo” ✅ · 2. errado — “tudo” é pronome → assistiu <b>a</b> tudo · 3. errado — “pé” é masculino → <b>a</b> pé.
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 12. PARALELISMO (split: colunas de um lado, conteúdo do outro) ============ -->
+  <section class="slide" data-title="Paralelismo sintático">
+    <div class="split">
+      <div class="art contain" style="background:var(--roxo-profundo)" data-in><img src="assets/colunas.png" alt="Colunas paralelas"></div>
+      <div class="content">
+        <h2 class="t-script" style="font-size:6.2cqh" data-in="2">Paralelismo sintático</h2>
+        <div class="card fragment" style="font-size:2.45cqh"><span class="no">❌ “Odorico manipulava o povo, seja pela palavra ou pela violência.”</span> → <span class="yes">✅ “seja pela palavra, seja pela violência.”</span> Abriu o par, fecha com o par certo.</div>
+        <div class="card fragment" style="font-size:2.45cqh"><span class="no">❌ “Odorico gostava de discursar e da adulação do povo.”</span> → <span class="yes">✅ “gostava de discursar e de ser adulado.”</span> (verbo + verbo)</div>
+        <div class="card fragment" style="font-size:2.45cqh"><span class="no">❌ “Odorico desprezava e zombava da ética.”</span> → <span class="yes">✅ “desprezava a ética e zombava dela.”</span> Regências diferentes não dividem o mesmo complemento.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 13. CARD PRÓCLISE ============ -->
+  <section class="slide" data-title="Próclise">
+    <div class="split">
+      <div class="art" data-in><img src="assets/mapa-sucupira.jpg" alt="Mapa de Sucupira"></div>
+      <div class="content">
+        <h2 class="t-script" data-in="2">Colocação pronominal: PRÓCLISE</h2>
+        <div class="card" data-in="3">
+          <span class="oque">O que é?</span>
+          O pronome (se, me, lhe, o, a…) vem <b>ANTES</b> do verbo quando existe uma palavra atrativa — um ímã — na frente. O macete do curso é o <b>NARIS-DOG</b>: Negativas, Advérbios, Relativos, Indefinidos, Subordinadas, Demonstrativos, Optativas e Gerúndio com “em”. Tem ímã antes do verbo? Pronome vai para a frente.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 14. PRÓCLISE EM AÇÃO ============ -->
+  <section class="slide" data-title="Próclise em ação">
+    <div class="center-wrap"><div class="center-col" style="max-width:76cqw">
+      <h2 class="t-script" style="font-size:5.6cqh" data-in>Próclise em ação: o ímã puxa o pronome</h2>
+      <div class="card" style="text-align:left" data-in="2">
+        <q>Odorico <b>não se</b> importava com os meios — só com os finalmentes.</q> (negativa)<br>
+        <q>Em Sucupira, <b>sempre se</b> temeu o poder do prefeito.</q> (advérbio)<br>
+        <q>É a farsa <b>que se</b> repete na política.</q> (relativo)<br>
+        <q><b>Ninguém se</b> atrevia a contrariar Odorico.</q> (indefinido)<br>
+        <q>Todos sabiam <b>que se</b> tratava de um golpe.</q> (subordinada)
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 15. CARD ÊNCLISE ============ -->
+  <section class="slide" data-title="Ênclise">
+    <div class="split">
+      <div class="art contain" data-in><img src="assets/livro.png" alt="Capa de O Bem-Amado, Dias Gomes"></div>
+      <div class="content">
+        <h2 class="t-script" data-in="2">Colocação pronominal: ÊNCLISE</h2>
+        <div class="card" data-in="3">
+          <span class="oque">O que é?</span>
+          Sem ímã, o pronome vai para <b>TRÁS</b> do verbo, com hífen. Verbo abrindo a oração — ou recomeçando depois de uma vírgula — pede ênclise: não se começa oração com pronome oblíquo. É o que o corretor resume como <q>a vírgula afasta o pronome</q>: quem manda, na verdade, é a ausência de palavra atrativa depois da pausa.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 16. ÊNCLISE EM AÇÃO ============ -->
+  <section class="slide" data-title="Ênclise em ação">
+    <div class="center-wrap"><div class="center-col" style="max-width:76cqw">
+      <h2 class="t-script" style="font-size:5.6cqh" data-in>Ênclise em ação: verbo abrindo a oração</h2>
+      <div class="card" style="text-align:left" data-in="2">
+        <q><b>Revela-se</b>, ao final, a hipocrisia do Vigário.</q> — nunca <span class="no">“Se revela…”</span><br>
+        <q><b>Inaugura-se</b> o cemitério com o corpo do próprio prefeito.</q><br><br>
+        E depois da pausa: <q>Nessa perspectiva, a obra, ao retratar a demagogia, <b>provoca-nos</b> uma reflexão.</q> — o registro formal que a banca espera.
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 17. CARD MESÓCLISE ============ -->
+  <section class="slide" data-title="Mesóclise">
+    <div class="split">
+      <div class="art" data-in><img src="assets/cena-novela.jpg" alt="Cena de O Bem-Amado"></div>
+      <div class="content">
+        <h2 class="t-script" data-in="2">Nota rápida: e a MESÓCLISE?</h2>
+        <div class="card" data-in="3">
+          <span class="oque">O que é?</span>
+          Verbo no futuro, sem ímã: o pronome entra no <b>meio</b> — <q><b>Inaugurar-se-á</b> o cemitério de Sucupira.</q> É <b>rara</b> na redação: não gastem energia com ela. Dominem o par <b>próclise × ênclise</b>, que é o que cai na prova.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 18. MÃO NA MASSA — COLOCAÇÃO ============ -->
+  <section class="slide" data-title="Mão na massa: colocação">
+    <div class="center-wrap"><div class="center-col" style="max-width:74cqw">
+      <h2 class="t-script" style="font-size:5.6cqh" data-in>Mão na massa: próclise ou ênclise?</h2>
+      <div class="card" style="text-align:left" data-in="2">
+        1. <q><span class="no">Se revela</span>, no fim da peça, o caráter do Vigário.</q><br>
+        2. <q>Odorico jamais <span class="no">arrependeu-se</span> de suas armações.</q><br>
+        3. <q>A população, depois do crime, <b>voltou-se</b> contra o prefeito.</q> — certo ou errado?
+      </div>
+      <div class="gabarito fragment">
+        <b>Gabarito:</b> 1. <b>Revela-se</b> (verbo abre a oração). 2. jamais <b>se arrependeu</b> (“jamais” é ímã: próclise). 3. certo — sem ímã depois da pausa → ênclise ✅
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 19. CARD CHECKLIST ============ -->
+  <section class="slide" data-title="Checklist">
+    <div class="split">
+      <div class="art contain" data-in><img src="assets/checklist-revisao.png" alt="Checklist de revisão"></div>
+      <div class="content">
+        <h2 class="t-script" data-in="2">O CHECKLIST da revisão</h2>
+        <div class="card" data-in="3">
+          <span class="oque">O que é?</span>
+          Seis perguntas para rodar na cabeça antes de entregar a redação. É o antídoto para o <q>entendo a regra, mas erro na hora de escrever</q>: revisar com <b>método</b>, não com pressa. Quem treina esse olhar para de errar por distração.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 20. AS SEIS PERGUNTAS ============ -->
+  <section class="slide" data-title="As seis perguntas">
+    <div class="center-wrap"><div class="center-col" style="max-width:78cqw">
+      <h2 class="t-script" style="font-size:5.6cqh" data-in>Revisão: as seis perguntas</h2>
+      <div class="card" style="text-align:left;font-size:2.55cqh" data-in="2">
+        <b>1.</b> Cada vírgula tem função? Separei sujeito e verbo? <b>Tiro.</b><br>
+        <b>2.</b> Adjunto deslocado no meio: abri <b>e</b> fechei a vírgula?<br>
+        <b>3.</b> Emendei duas ideias completas só com vírgula? <b>Conector ou ponto.</b><br>
+        <b>4.</b> Cortei uma ideia no meio com ponto? <b>Junto de novo.</b><br>
+        <b>5.</b> Verbo abrindo a oração ou vindo depois de vírgula? <b>Ênclise.</b><br>
+        <b>6.</b> Crase: troquei pelo masculino? Deu “ao”, <b>tem crase.</b>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 21. O QUE LEVAR ============ -->
+  <section class="slide" data-title="O que levar">
+    <div class="split">
+      <div class="art" data-in><img src="assets/zeca-diabo.jpg" alt="Zeca Diabo"></div>
+      <div class="content">
+        <h2 class="t-script" data-in="2">O QUE LEVAR desta aula</h2>
+        <div class="card" data-in="3">
+          Vírgula é <b>lógica</b>, não fôlego. Crase se resolve com o <b>truque do masculino</b>. Paralelismo é <b>simetria</b>: “seja” fecha com “seja”. Pronome segue o <b>ímã</b>. E o fio que costura tudo: <b>escrever bem não é escrever difícil — é ser entendido de primeira.</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 22. FUGIR DO ODORICO ============ -->
+  <section class="slide" data-title="Fugir do Odorico">
+    <div class="center-wrap"><div class="center-col" style="max-width:76cqw">
+      <h2 class="t-script" style="font-size:5.6cqh" data-in>Fugir do Odorico é escrever para ser entendido</h2>
+      <div class="card" data-in="2">
+        Odorico falava <q>prafrentemente</q> e <q>deverasmente</q>, enchia a boca de palavra e não dizia nada — exatamente a linguagem que a UERJ <b>não</b> quer. A banca premia <b>clareza, precisão e limpeza</b>. Nas próximas redações, revisem com as seis perguntas do checklist: quem treina esse olhar para de errar por distração. <b>Fujam do Odorico!</b>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 23. FINAL ============ -->
+  <section class="slide final" data-title="Encerramento">
+    <img class="foto" src="assets/milla-palco.jpg" alt="Professora Milla Borges no palco">
+    <div class="overlay"></div>
+    <div class="msg" data-in>
+      <div class="t-script">NADA PODE PARAR UM<br>CORAÇÃO DETERMINADO!</div>
+    </div>
+    <div class="credit" data-in="2">Professora Milla Borges · <span style="font-weight:300">@prof</span><b>millaborges</b></div>
+  </section>
+
+  <!-- UI -->
+  <div class="progress" id="progress" style="width:0"></div>
+  <div class="counter" id="counter" aria-live="polite"></div>
+  <div class="navhint">← → navegam · F tela cheia</div>
+  <button class="navbtn prev" id="btnPrev" aria-label="Slide anterior">‹</button>
+  <button class="navbtn next" id="btnNext" aria-label="Próximo slide">›</button>
+</div>
+
+<script>
+/* ===== motor do deck: navegação por slide + fragments ===== */
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const progress=document.getElementById('progress');
+  const counter=document.getElementById('counter');
+  const topbar=document.querySelector('[data-topbar]');
+  const handle=document.querySelector('[data-handle]');
+  let i=0;
+
+  function fragsOf(s){return [...s.querySelectorAll('.fragment')]}
+
+  function show(n,revealAll){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===n));
+    i=n;
+    const s=slides[i];
+    fragsOf(s).forEach(f=>f.classList.toggle('visible',!!revealAll));
+    const isFinal=s.classList.contains('final');
+    topbar.style.display=isFinal?'none':'flex';
+    handle.style.display=(isFinal||s.classList.contains('cover'))?'none':'block';
+    progress.style.width=((i+1)/slides.length*100)+'%';
+    counter.textContent=(i+1)+' / '+slides.length;
+    location.hash='s'+(i+1);
+  }
+
+  function next(){
+    const pend=fragsOf(slides[i]).filter(f=>!f.classList.contains('visible'));
+    if(pend.length){pend[0].classList.add('visible');return}
+    if(i<slides.length-1)show(i+1,false);
+  }
+  function prev(){
+    const vis=fragsOf(slides[i]).filter(f=>f.classList.contains('visible'));
+    if(vis.length){vis[vis.length-1].classList.remove('visible');return}
+    if(i>0)show(i-1,true);
+  }
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next()}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}
+    else if(e.key==='Home'){show(0,false)}
+    else if(e.key==='End'){show(slides.length-1,false)}
+    else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  });
+  document.getElementById('btnNext').addEventListener('click',next);
+  document.getElementById('btnPrev').addEventListener('click',prev);
+
+  let tx=null;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(tx===null)return;
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>48)(dx<0?next():prev());
+    tx=null;
+  },{passive:true});
+
+  const m=location.hash.match(/^#s(\d+)$/);
+  show(m?parseInt(m[1],10)-1:0,false);
+})();
+</script>
+</body>
+</html>
